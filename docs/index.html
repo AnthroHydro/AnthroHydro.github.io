@@ -49,6 +49,12 @@
     <li class="toctree-l2"><a class="reference internal" href="#command-line">Command Line</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#module">Module</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#documentation">Documentation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#example">Example</a>
+    </li>
+        </ul>
     </li>
     </ul>
                 </li>
@@ -94,41 +100,48 @@
 <code>-o</code>, <code>--output</code> the name of the .txt the tool should write metrics to<br />
 <code>-v</code>, <code>--verify</code> filename with the .xlsx extension to be created for verification (a .avi file with the same name will be saved as well)  </p>
 <h2 id="module">Module</h2>
+<h3 id="documentation">Documentation</h3>
 <p><code>BottleDetector(weights='bottle_weights.pt')</code>  </p>
 <p><code>__init__(self, weights='bottle_weights.pt')</code><br />
            &nbsp;&nbsp;&nbsp;&nbsp;<strong>Description</strong>:<br />
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;initializes a new YOLO model<br />
            &nbsp;&nbsp;&nbsp;&nbsp;<strong>Parameters</strong>:<br />
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weights (<code>String</code>)    : path to the .pt file containing the weights of the model<br />
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>weights</code> (<code>String</code>)    : path to the .pt file containing the weights of the model<br />
            &nbsp;&nbsp;&nbsp;&nbsp;<strong>Returns</strong>:<br />
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>BottleDetector</code> class object  </p>
 <p><code>predict_frame(self, frame, thresh)</code><br />
            &nbsp;&nbsp;&nbsp;&nbsp;<strong>Description</strong>:<br />
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;runs the input frame through an inference pass on the class's model<br />
            &nbsp;&nbsp;&nbsp;&nbsp;<strong>Parameters</strong>:<br />
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;frame (<code>String</code>)      : video frame to be processed and tracked<br />
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;thresh (<code>float</code>)      : confidence threshold the model should use<br />
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>frame</code> (<code>String</code>)      : video frame to be processed and tracked<br />
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>thresh</code> (<code>float</code>)      : confidence threshold the model should use<br />
            &nbsp;&nbsp;&nbsp;&nbsp;<strong>Returns</strong>:<br />
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>List[Detections]</code>    : list of norfair Detection objects for the results of running the model on the input frame  </p>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>List[Detections]</code>      : list of norfair Detection objects  </p>
 <p><code>track(self, path='demo.mp4', skip_frames=3, tracker=None, actual_num_bottles=None, min_time=1.0, min_frame_dist=0.3, show=False, thresh=0.05, save=None)</code><br />
            &nbsp;&nbsp;&nbsp;&nbsp;<strong>Description</strong>:<br />
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method gathers data from the video, running the tracking algorithm to detect bottles. Post-processing <br />
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is performed so as to filter out false positives, making it easier to lower detection thresholds in the case<br />
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of false negatives.<br />
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method gathers data from the video, running the tracking algorithm to detect<br> 
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bottles. Post-processing is performed so as to filter out false positives, making it<br>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;easier to lower detection thresholds in the case of false negatives.<br />
            &nbsp;&nbsp;&nbsp;&nbsp;<strong>Parameters</strong>:<br />
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path (<code>String</code>)               : the video to test the model on, associated with timestamps<br />
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;skip_frames (<code>int</code>)           : number of frames to be skipped before reading the next<br />
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tracker (<code>Tracker</code>)           : a norfair Tracker object to be used for object tracking<br />
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;actual_num_bottles (<code>int</code>)    : the number of bottles that actually appear in the video, shows error metrics if present<br />
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;min_time (<code>float</code>)            : the minimum number of seconds a bottle must be on screen for it to be counted<br />
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;min_frame_dist (<code>float</code>)      : a float between 0.0 and 1.0 representing the fraction of the screen the bottle must travel horizontally to be counted<br />
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;show (<code>bool</code>)                 : whether or not the video should be displayed as tracking is run<br />
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;thresh (<code>float</code>)              : confidence threshold the model should use<br />
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;save (<code>String</code>)               : either None or the name under which the video should be saved with tracking annotations<br />
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>path</code> (<code>String</code>)               : the video to test the model on, associated with timestamps<br />
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>skip_frames</code> (<code>int</code>)           : number of frames to be skipped before reading the next<br />
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>tracker</code> (<code>Tracker</code>)           : a norfair <code>Tracker</code> object to be used for object tracking<br />
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>actual_num_bottles</code> (<code>int</code>)    : the number of bottles that actually appear in the video<br />
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>min_time</code> (<code>float</code>)            : number of seconds a bottle must be on screen for it to be counted<br />
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>min_frame_dist</code> (<code>float</code>)      : horizontal fraction of the frame the bottle must travel to be counted<br />
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>show</code> (<code>bool</code>)                 : whether or not the video should be displayed as tracking is run<br />
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>thresh</code> (<code>float</code>)              : confidence threshold the model should use<br />
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>save</code> (<code>String</code>)               : either <code>None</code> or the name under which the annotated video should be saved<br />
            &nbsp;&nbsp;&nbsp;&nbsp;<strong>Returns</strong>:
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>int</code>                         : number of bottles that were successfully tracked and counted in the video<br />
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>float</code>                       : the accuracy of the model on the input video<br />
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>List[tuple]</code>                 : list of the metrics of the bottles tracked in the video  </p>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>tuple[int, int, Dict]</code>       : metrics and a dictionary of the bottles tracked in the video  </p>
+<h3 id="example">Example</h3>
+<pre><code>from bottledetector import BottleDetector
+
+model = BottleDetector()
+model.track(path='path/to/video.mp4')
+</code></pre>
               
             </div>
           </div><footer>
